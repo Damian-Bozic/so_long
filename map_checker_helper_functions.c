@@ -39,7 +39,7 @@ static int	is_flooded(char c)
 {
 	if (c == '0' || c == 'C' || c == 'E')
 		return (0);
-	if (c == 'P' || c == 'o' || c == 'e' || c == 'c')
+	if (c == 'P' || c == 'o' || c == 'c')
 		return (1);
 	return (2);
 }
