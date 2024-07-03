@@ -38,5 +38,10 @@ int		flood_map(char **map);
 int		detect_close();
 void	clean_exit(int code, t_game **game);
 t_game *make_game_struct(void);
+void draw_frame(char **map, t_game *root, int count);
+void find_char_on_map(char **map, char *str, int *x, int *y);
+void move_player(int key, char **map, int x, int y);
+void load_sprites(t_game *root);
+void game_win(void);
 
 #endif
