@@ -41,23 +41,19 @@ static int	check_map_boarder(int size_x, int size_y, char **map)
 	int	i;
 
 	i = 0;
+	if (size_x > 60 || size_y > 32)
+		return (ft_printf("Error\nMap is too big\n"));
 	while (map[i])
 	{
 		if (map[i][0] != '1' || map[i][size_x - 1] != '1')
-		{
-			ft_printf("Error\nMap is not surrounded\n");
-			return (0);
-		}
+			return (ft_printf("Error\nMap is not surrounded\n"));
 		i++;
 	}
 	i = 0;
 	while (map[0][i])
 	{
 		if (map[0][i] != '1' || map[size_y - 1][i] != '1')
-		{
-			ft_printf("Error\nMap is not surrounded\n");
-			return (0);
-		}
+			return (ft_printf("Error\nMap is not surrounded\n"));
 		i++;
 	}
 	return (1);
@@ -72,7 +68,7 @@ static int check_map_format(int xsize, char **map)
 	y = 0;
 	while (map[y])
 	{
-		while (map[y][x])
+		while (map[y][x] != '\0' && map[y][x] != '\n')
 		{
 			if ((map[y][x] != '1') && (map[y][x] != '0') && (map[y][x] != 'C')
 				&& (map[y][x] != 'P') && (map[y][x] != 'E'))
@@ -108,11 +104,11 @@ int	check_map(char **map, t_game **game)
 	root = *game;
 	while (map[root->my])
 		root->my++;
-	while (map[0][root->mx])
+	while (map[0][root->mx] != '\n' && (map[0][root->mx]))
 		root->mx++;
 	x = root->mx;
 	y = root->my;
-	if ((!check_map_format(x, map)) || (!check_map_boarder(x, y, map))
+	if ((!check_map_format(x, map)) || (check_map_boarder(x, y, map) != 1)
 		|| (!map_is_completable(map)))
 	{
 		free_map(map);

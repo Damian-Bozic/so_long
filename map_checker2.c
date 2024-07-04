@@ -107,12 +107,6 @@ int	flood_map(char **map)
 	while (flood_map_cycle(map))
 		cycles++;
 	ft_printf("finished flooding with %d cycles\n", cycles);
-	int	i = 0;
-	while (map[i])
-	{
-		ft_printf("%d=	%s\n", i, map[i]);
-		i++;
-	}
 	if (count_tiles('E', map) || (count_tiles('C', map)))
 	{
 		ft_printf("Error\nNot all critical tiles are accessable\n");
@@ -120,3 +114,10 @@ int	flood_map(char **map)
 	}
 	return (1);
 }
+
+	// int	i = 0;
+	// while (map[i])
+	// {
+	// 	ft_printf("%d=	%s\n", i, map[i]);
+	// 	i++;
+	// }

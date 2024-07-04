@@ -59,7 +59,7 @@ char	**create_map(char *address, t_game **game)
 	{
 		map[i] = get_next_line(fd);
 		if (map[i])
-			map[i][ft_strlen(map[i]) - 1] = '\0';
+			map[i][ft_strclen(map[i], '\n')] = '\0';
 		i++;
 	}
 	close(fd);

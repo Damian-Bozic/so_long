@@ -13,7 +13,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 MAIN = so_long.c
-SOURCES = map_checker.c map_checker_helper_functions.c map_functions.c \
+SOURCES = map_checker.c map_checker2.c map_functions.c \
 		  struct_functions.c game_functions.c game_functions2.c
 OBJECTS = $(SOURCES:%.c=%.o)
 NAME = so_long.a
