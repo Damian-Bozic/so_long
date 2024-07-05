@@ -12,13 +12,13 @@
 
 #include "so_long.h"
 
-static void move_player2(int key, char **map, int x, int y)
+static void	move_player2(int key, char **map, int x, int y)
 {
 	if (key == 115)
 	{
 		map[y][x] = 'S';
 		if (map[y + 1][x] == 'E')
-				game_win();
+			game_win();
 		else if (map[y + 1][x] != '1' && map[y + 1][x] != 'e')
 		{
 			map[y][x] = 'o';
@@ -29,7 +29,7 @@ static void move_player2(int key, char **map, int x, int y)
 	{
 		map[y][x] = 'D';
 		if (map[y][x + 1] == 'E')
-				game_win();
+			game_win();
 		else if (map[y][x + 1] != '1' && map[y][x + 1] != 'e')
 		{
 			map[y][x] = 'o';
@@ -38,13 +38,13 @@ static void move_player2(int key, char **map, int x, int y)
 	}
 }
 
-void move_player(int key, char **map, int x, int y)
+void	move_player(int key, char **map, int x, int y)
 {
 	if (key == 119)
 	{
 		map[y][x] = 'P';
 		if (map[y - 1][x] == 'E')
-				game_win();
+			game_win();
 		else if (map[y - 1][x] != '1' && map[y - 1][x] != 'e')
 		{
 			map[y][x] = 'o';
@@ -55,7 +55,7 @@ void move_player(int key, char **map, int x, int y)
 	{
 		map[y][x] = 'A';
 		if (map[y][x - 1] == 'E')
-				game_win();
+			game_win();
 		else if (map[y][x - 1] != '1' && map[y][x - 1] != 'e')
 		{
 			map[y][x] = 'o';
@@ -66,7 +66,7 @@ void move_player(int key, char **map, int x, int y)
 		move_player2(key, map, x, y);
 }
 
-void find_char_on_map(char **map, char *str, int *x, int *y)
+void	find_char_on_map(char **map, char *str, int *x, int *y)
 {
 	int	i;
 

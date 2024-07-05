@@ -81,3 +81,22 @@ void	free_map(char **ptr)
 	}
 	free(ptr);
 }
+
+int	check_file_type(char *file_name)
+{
+	int	i;
+
+	i = ft_strlen(file_name);
+	if (i < 4)
+	{
+		ft_printf("Error\ninvalid file\n");
+		clean_exit(-1, NULL);
+	}
+	i = i - 4;
+	if (ft_strncmp(&file_name[i], ".ber", 4) != 0)
+	{
+		ft_printf("Error\ninvalid file\n");
+		clean_exit(-1, NULL);
+	}
+	return (1);
+}

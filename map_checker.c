@@ -41,7 +41,7 @@ static int	check_map_boarder(int size_x, int size_y, char **map)
 	int	i;
 
 	i = 0;
-	if (size_x > 60 || size_y > 32)
+	if (size_x > 60 || size_y > 31)
 		return (ft_printf("Error\nMap is too big\n"));
 	while (map[i])
 	{
@@ -59,7 +59,7 @@ static int	check_map_boarder(int size_x, int size_y, char **map)
 	return (1);
 }
 
-static int check_map_format(int xsize, char **map)
+static int	check_map_format(int xsize, char **map)
 {
 	int	x;
 	int	y;
@@ -97,8 +97,8 @@ static int check_map_format(int xsize, char **map)
 // -map is possible to complete
 int	check_map(char **map, t_game **game)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	t_game	*root;
 
 	root = *game;
@@ -119,25 +119,6 @@ int	check_map(char **map, t_game **game)
 		ft_printf("Error\nMap is square\n");
 		free_map(map);
 		return (0);
-	}
-	return (1);
-}
-
-int check_file_type(char *file_name)
-{
-	int	i;
-
-	i = ft_strlen(file_name);
-	if (i < 4)
-	{
-		ft_printf("Error\ninvalid file\n");
-		clean_exit(-1, NULL);
-	}
-	i = i - 4;
-	if (ft_strncmp(&file_name[i], ".ber", 4) != 0)
-	{
-		ft_printf("Error\ninvalid file\n");
-		clean_exit(-1, NULL);
 	}
 	return (1);
 }

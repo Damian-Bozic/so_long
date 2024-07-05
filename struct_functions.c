@@ -12,7 +12,53 @@
 
 #include "so_long.h"
 
-t_game *make_game_struct(void)
+static void	load_sprites2(t_game *root, char **assets)
+{
+	t_list	*current;
+	int		i;
+	int		x;
+
+	i = 0;
+	current = root->sprites;
+	while (assets[i])
+	{
+		current = ft_lstnew(mlx_xpm_file_to_image(root->mlx, assets[i], &x,
+					&x));
+		if (!current)
+		{
+			free(assets);
+			clean_exit(3, &root);
+		}
+		if (!root->sprites)
+			root->sprites = current;
+		else
+			ft_lstadd_back(&root->sprites, current);
+		i++;
+	}
+	free(assets);
+}
+
+void	load_sprites(t_game *root)
+{
+	char	**assets;
+
+	assets = malloc(sizeof(char *) * 10);
+	if (!assets)
+		clean_exit(-1, &root);
+	assets[0] = "sprites/background.xpm";
+	assets[1] = "sprites/wall.xpm";
+	assets[2] = "sprites/collect.xpm";
+	assets[3] = "sprites/exit.xpm";
+	assets[4] = "sprites/playerw.xpm";
+	assets[5] = "sprites/playera.xpm";
+	assets[6] = "sprites/players.xpm";
+	assets[7] = "sprites/playerd.xpm";
+	assets[8] = "sprites/exit_open.xpm";
+	assets[9] = NULL;
+	load_sprites2(root, assets);
+}
+
+t_game	*make_game_struct(void)
 {
 	t_game	*game;
 
@@ -59,8 +105,8 @@ static void	free_game_struct(t_game **game)
 
 void	clean_exit(int code, t_game **game)
 {
-	t_list *asset;
-	t_game *root;
+	t_list	*asset;
+	t_game	*root;
 
 	if (!game)
 		exit(code);

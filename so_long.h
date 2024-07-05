@@ -19,29 +19,27 @@
 
 typedef struct s_game
 {
-		t_xvar			*mlx;
-		t_win_list		*win;
-		struct s_list	*sprites;
-		char			**map;
-		int				mx;
-		int				my;
-		int				status;
-}		t_game;
+	t_xvar			*mlx;
+	t_win_list		*win;
+	struct s_list	*sprites;
+	char			**map;
+	int				mx;
+	int				my;
+	int				status;
+}	t_game;
 
-
-int 	check_file_type(char *file_name);
+int		check_file_type(char *file_name);
 void	free_map(char **ptr);
 char	**create_map(char *address, t_game **game);
 int		count_tiles(char c, char **map);
 int		check_map(char **map, t_game **game);
 int		flood_map(char **map);
-int		detect_close();
 void	clean_exit(int code, t_game **game);
-t_game *make_game_struct(void);
-void draw_frame(char **map, t_game *root, int count);
-void find_char_on_map(char **map, char *str, int *x, int *y);
-void move_player(int key, char **map, int x, int y);
-void load_sprites(t_game *root);
-void game_win(void);
+t_game	*make_game_struct(void);
+void	draw_frame(char **map, t_game *root, int count);
+void	find_char_on_map(char **map, char *str, int *x, int *y);
+void	move_player(int key, char **map, int x, int y);
+void	load_sprites(t_game *root);
+void	game_win(void);
 
 #endif

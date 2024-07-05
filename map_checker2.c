@@ -16,14 +16,14 @@ int	count_tiles(char c, char **map)
 {
 	int	xpos;
 	int	ypos;
-	int flag;
+	int	flag;
 
 	xpos = 0;
 	ypos = 0;
 	flag = 0;
 	while (map[ypos])
 	{
-		while(map[ypos][xpos])
+		while (map[ypos][xpos])
 		{
 			if (map[ypos][xpos] == c)
 				flag++;
@@ -57,7 +57,7 @@ static int	check_nieghbors(int x, int y, char **map)
 				map[y][x] = 'c';
 			else if (map[y][x] == 'E')
 				map[y][x] = 'e';
-			return(1);
+			return (1);
 		}
 		return (0);
 	}
@@ -75,7 +75,7 @@ static int	flood_map_cycle(char **map)
 	flag = 0;
 	while (map[y])
 	{
-		while(map[y][x])
+		while (map[y][x])
 		{
 			if (check_nieghbors(x, y, map))
 				flag++;
@@ -103,10 +103,8 @@ int	flood_map(char **map)
 	int	cycles;
 
 	cycles = 0;
-	ft_printf("flooding\n");
 	while (flood_map_cycle(map))
 		cycles++;
-	ft_printf("finished flooding with %d cycles\n", cycles);
 	if (count_tiles('E', map) || (count_tiles('C', map)))
 	{
 		ft_printf("Error\nNot all critical tiles are accessable\n");
@@ -114,10 +112,3 @@ int	flood_map(char **map)
 	}
 	return (1);
 }
-
-	// int	i = 0;
-	// while (map[i])
-	// {
-	// 	ft_printf("%d=	%s\n", i, map[i]);
-	// 	i++;
-	// }

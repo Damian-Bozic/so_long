@@ -12,14 +12,18 @@
 
 #include "so_long.h"
 
-t_game	*g_game;
+t_game		*g_game;
 
-int	detect_key_inputs(int key)
+static int	detect_close(void)
+{
+	clean_exit(0, &g_game);
+	return (1);
+}
+
+static int	detect_key_inputs(int key, int x, int y)
 {
 	static int	input_counter = 0;
 	static int	flag = 0;
-	int			x;
-	int			y;
 
 	if (key == 65307)
 		clean_exit(0, &g_game);
@@ -38,34 +42,20 @@ int	detect_key_inputs(int key)
 		}
 		draw_frame(g_game->map, g_game, input_counter);
 		if (flag == -1)
-			mlx_string_put(g_game->mlx, g_game->win, (((g_game->mx * 32) / 2) - 22),
-				((g_game->my * 32) / 2), 2147483647, "You Won!");
+			mlx_string_put(g_game->mlx, g_game->win, (((g_game->mx * 32) / 2)
+					- 22), ((g_game->my * 32) / 2), 2147483647, "You Won!");
 	}
-	return (1);
-}
-
-int	detect_close(void)
-{
-	clean_exit(0, &g_game);
 	return (1);
 }
 
 void	game_win(void)
 {
-	int	i;
 	int	x;
 	int	y;
 
-	i = 0;
-	while (g_game->map[i])
-	{
-		ft_printf("%d=	%s\n", i, g_game->map[i]);
-		i++;
-	}
 	find_char_on_map(g_game->map, "PASD", &x, &y);
 	g_game->map[y][x] = 'o';
-	ft_printf("WIN!!!\n");
-	detect_key_inputs(-1);
+	detect_key_inputs(-1, 0, 0);
 }
 
 int	main(int argc, char **argv)

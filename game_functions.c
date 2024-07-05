@@ -12,43 +12,10 @@
 
 #include "so_long.h"
 
-void load_sprites(t_game *root)
+static void	*sprite(t_game *root, int index)
 {
-	int	i;
+	t_list	*current;
 
-	root->sprites = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/background.xpm", &i, &i));
-	if (!root->sprites)
-		clean_exit(3, &root);
-	root->sprites->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/wall.xpm", &i, &i));
-	if (!root->sprites->next)
-		clean_exit(3, &root);
-	root->sprites->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/collect.xpm", &i, &i));
-	if (!root->sprites->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/exit.xpm", &i, &i));
-	if (!root->sprites->next->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/playerw.xpm", &i, &i));
-	if (!root->sprites->next->next->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/playera.xpm", &i, &i));
-	if (!root->sprites->next->next->next->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/players.xpm", &i, &i));
-	if (!root->sprites->next->next->next->next->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next->next->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/playerd.xpm", &i, &i));
-	if (!root->sprites->next->next->next->next->next->next->next)
-		clean_exit(3, &root);
-	root->sprites->next->next->next->next->next->next->next->next = ft_lstnew(mlx_xpm_file_to_image(root->mlx, "sprites/exit_open.xpm", &i, &i));
-	if (!root->sprites->next->next->next->next->next->next->next->next)
-		clean_exit(3, &root);
-}
-
-static void *sprite(t_game *root, int index)
-{
-	t_list *current;
-	
 	current = root->sprites;
 	while (index > 0)
 	{
@@ -58,7 +25,7 @@ static void *sprite(t_game *root, int index)
 	return (current->content);
 }
 
-static void put_img(t_game *root, char tile, int x, int y)
+static void	put_img(t_game *root, char tile, int x, int y)
 {
 	if (tile == 'o')
 		return ;
@@ -80,7 +47,7 @@ static void put_img(t_game *root, char tile, int x, int y)
 		mlx_put_image_to_window(root->mlx, root->win, sprite(root, 8), x, y);
 }
 
-void draw_frame(char **map, t_game *root, int count)
+void	draw_frame(char **map, t_game *root, int count)
 {
 	int		x;
 	int		y;
