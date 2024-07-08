@@ -13,11 +13,12 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 MAIN = so_long.c
-SOURCES = game_functions.c game_functions2.c map_checker.c \
-		  map_checker2.c read_file.c struct_functions.c
+BMAIN = so_long_bonus.c
+SOURCES = close_game.c draw_game.c setup_game.c check_game2.c check_game.c
 OBJECTS = $(SOURCES:%.c=%.o)
 NAME = so_long.a
 PROGRAM = so_long
+BPROGRAM = so_long_bonus
 LIBFT = Libft/libft.a
 MINILIBX = minilibx-linux/libmlx_Linux.a
 
@@ -35,11 +36,14 @@ $(NAME): $(OBJECTS)
 $(PROGRAM): $(MINILIBX) $(LIBFT) $(NAME)
 	$(CC) $(FLAGS) $(MAIN) $(NAME) $(LIBFT) $(MINILIBX) -lXext -lX11 -o $(PROGRAM)
 
+$(BPROGRAM): $(MINILIBX) $(LIBFT) $(NAME)
+	$(CC) $(FLAGS) $(BMAIN) $(NAME) $(LIBFT) $(MINILIBX) -lXext -lX11 -o $(BPROGRAM)
+
 %.o: %.c
 	$(CC) $(FLAGS) -I. -o $@ -c $<
 
 clean:
-	rm -f $(OBJECTS) $(BOBJECTS)
+	rm -f $(OBJECTS)
 	$(MAKE) -C Libft clean
 	$(MAKE) -C minilibx-linux clean
 
@@ -50,8 +54,11 @@ fclean: clean
 
 cc:
 	$(CC) $(FLAGS) $(MAIN) $(NAME) $(LIBFT) $(MINILIBX) -lXext -lX11 -o $(PROGRAM)
+	$(CC) $(FLAGS) $(MAIN) $(NAME) $(LIBFT) $(MINILIBX) -lXext -lX11 -o $(BPROGRAM)
 
 re: fclean all
+
+bonus: $(BPROGRAM)
 
 full: all clean
 	clear

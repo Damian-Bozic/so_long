@@ -1,80 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_functions.c                                 :+:      :+:    :+:   */
+/*   close_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbozic <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 17:42:49 by dbozic            #+#    #+#             */
-/*   Updated: 2024/06/27 17:43:05 by dbozic           ###   ########.fr       */
+/*   Created: 2024/07/08 14:30:58 by dbozic            #+#    #+#             */
+/*   Updated: 2024/07/08 14:31:10 by dbozic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	load_sprites2(t_game *root, char **assets)
+// free_map frees every str in the map array, then frees the array itself.
+void	free_map(char **ptr)
 {
-	t_list	*current;
-	int		i;
-	int		x;
+	int	i;
 
 	i = 0;
-	current = root->sprites;
-	while (assets[i])
+	while (ptr[i])
 	{
-		current = ft_lstnew(mlx_xpm_file_to_image(root->mlx, assets[i], &x,
-					&x));
-		if (!current)
-		{
-			free(assets);
-			clean_exit(3, &root);
-		}
-		if (!root->sprites)
-			root->sprites = current;
-		else
-			ft_lstadd_back(&root->sprites, current);
+		free(ptr[i]);
 		i++;
 	}
-	free(assets);
+	free(ptr);
 }
 
-void	load_sprites(t_game *root)
-{
-	char	**assets;
-
-	assets = malloc(sizeof(char *) * 10);
-	if (!assets)
-		clean_exit(-1, &root);
-	assets[0] = "sprites/background.xpm";
-	assets[1] = "sprites/wall.xpm";
-	assets[2] = "sprites/collect.xpm";
-	assets[3] = "sprites/exit.xpm";
-	assets[4] = "sprites/playerw.xpm";
-	assets[5] = "sprites/playera.xpm";
-	assets[6] = "sprites/players.xpm";
-	assets[7] = "sprites/playerd.xpm";
-	assets[8] = "sprites/exit_open.xpm";
-	assets[9] = NULL;
-	load_sprites2(root, assets);
-}
-
-t_game	*make_game_struct(void)
-{
-	t_game	*game;
-
-	game = (t_game *)malloc(sizeof(t_game));
-	if (!game)
-		return (NULL);
-	game->mlx = NULL;
-	game->win = NULL;
-	game->sprites = NULL;
-	game->map = NULL;
-	game->status = 0;
-	game->mx = 0;
-	game->my = 0;
-	return (game);
-}
-
+// free_game_struct frees the struct and the linked list within it.
 static void	free_game_struct(t_game **game)
 {
 	t_game	*root;
@@ -103,6 +55,8 @@ static void	free_game_struct(t_game **game)
 	*game = NULL;
 }
 
+// clean_exit frees everything in use in **game, then closes the program.
+// it can also print an error message depending on the error code given.
 void	clean_exit(int code, t_game **game)
 {
 	t_list	*asset;

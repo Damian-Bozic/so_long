@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+// returns how many tiles are of a given char
 int	count_tiles(char c, char **map)
 {
 	int	xpos;
@@ -35,6 +36,7 @@ int	count_tiles(char c, char **map)
 	return (flag);
 }
 
+// checks if a given tile is "flooded"
 static int	is_flooded(char c)
 {
 	if (c == '0' || c == 'C' || c == 'E')
@@ -44,6 +46,9 @@ static int	is_flooded(char c)
 	return (2);
 }
 
+// checks whether the given tile position is already flooded.
+// if it isnt flooded, and if one of its nieghbors are flooded
+//  the tile given becomes "flooded"
 static int	check_nieghbors(int x, int y, char **map)
 {
 	if (is_flooded(map[y][x]) == 0)
@@ -87,17 +92,20 @@ static int	flood_map_cycle(char **map)
 	return (flag);
 }
 
-// flood_paths checks if the player is able to reach all collectables
-// by finding all possible squares the player can reach
-// it does this by iterating and spreading its reachalbe locations like so:
+// flood_map checks if the player is able to reach all collectables and
+//  the exit by finding all possible squares the player can reach.
+// it does this by "flooding" all the reachable parts of the map.
+// if by the end a critical tile remains "unflooded", it means that the map
+//  is incompletable.
+//
 // 11111 	11111 	 11111 	  11111    11111
 // 1C0E1 	1C0E1	 1c0E1 	  1coE1    1coe1
 // 10001 -> 1o001 -> 1oo01 -> 1ooo1 -> 1ooo1
 // 1P001 	1Po01 	 1poo1 	  1poo1    1poo1
 // 11111 	11111 	 11111 	  11111    11111
-// if no tiles are transformed in a cycle then the map is fully checked
-// and we can check if there are any C or Es left in the map, if there are
-// then the map is impossible to complete, and therefore invalid
+//
+// if no tiles are transformed in a cycle then the map is fully "flooded"
+//  and can be checked for any "unflooded" tiles.
 int	flood_map(char **map)
 {
 	int	cycles;

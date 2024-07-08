@@ -63,16 +63,12 @@ static int	detect_key_inputs(int key, int x, int y)
 	{
 		g_game->status = -1;
 		g_game->moves++;
-		ft_printf("Total Movements: %d\n", g_game->moves);
 	}
 	if (g_game->status >= 0)
 	{
 		find_char_on_map(g_game->map, "PASD", &x, &y);
 		if (move_player(key, g_game->map, x, y))
-		{
 			g_game->moves++;
-			ft_printf("Total Movements: %d\n", g_game->moves);
-		}
 		if (g_game->status == 0 && count_tiles('c', g_game->map) == 0)
 		{
 			find_char_on_map(g_game->map, "e", &x, &y);

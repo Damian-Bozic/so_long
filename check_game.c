@@ -12,6 +12,11 @@
 
 #include "so_long.h"
 
+// map_is_completable checks for:
+// -map only has one player
+// -map only has one exit
+// -map has at least one collectable
+// -map all essential parts are reachable
 static int	map_is_completable(char **map)
 {
 	if (count_tiles('P', map) != 1)
@@ -35,7 +40,9 @@ static int	map_is_completable(char **map)
 	return (1);
 }
 
-// check_map_boarder checks if the boarder of the map is made of walls ('1's)
+// check_map_boarder checks for:
+// -map is surrounded by walls
+// -map is too big
 static int	check_map_boarder(int size_x, int size_y, char **map)
 {
 	int	i;
@@ -59,6 +66,9 @@ static int	check_map_boarder(int size_x, int size_y, char **map)
 	return (1);
 }
 
+// check_map_format checks for:
+// -map is rectangular
+// -map is made of valid symbols
 static int	check_map_format(int xsize, char **map)
 {
 	int	x;
@@ -89,12 +99,14 @@ static int	check_map_format(int xsize, char **map)
 }
 
 // check_map checks if the map complies with the following rules:
-// -map is not square
-// -map is surrounded by walls
 // -map only has one player
 // -map only has one exit
 // -map has at least one collectable
-// -map is possible to complete
+// -map all essential parts are reachable
+// -map is surrounded by walls
+// -map is too big
+// -map is rectangular
+// -map is made of valid symbols
 int	check_map(char **map, t_game **game)
 {
 	int		x;
@@ -119,6 +131,27 @@ int	check_map(char **map, t_game **game)
 		ft_printf("Error\nMap is square\n");
 		free_map(map);
 		return (0);
+	}
+	return (1);
+}
+
+// check_file_type checks whether the input for the file is actaully
+//  a .ber file.
+int	check_file_type(char *file_name)
+{
+	int	i;
+
+	i = ft_strlen(file_name);
+	if (i < 4)
+	{
+		ft_printf("Error\ninvalid file\n");
+		clean_exit(-1, NULL);
+	}
+	i = i - 4;
+	if (ft_strncmp(&file_name[i], ".ber", 4) != 0)
+	{
+		ft_printf("Error\ninvalid file\n");
+		clean_exit(-1, NULL);
 	}
 	return (1);
 }
