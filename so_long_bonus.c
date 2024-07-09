@@ -88,7 +88,7 @@ void	game_win(void)
 	int	y;
 
 	find_char_on_map(g_game->map, "PASD", &x, &y);
-	g_game->map[y][x] = 'o';
+	g_game->map[y][x] = '0';
 	detect_key_inputs(-1, 0, 0);
 }
 
@@ -115,6 +115,7 @@ int	main(int argc, char **argv)
 	load_sprites(g_game);
 	mlx_key_hook(g_game->win, detect_key_inputs, 0);
 	mlx_hook(g_game->win, 17, 0, detect_close, NULL);
+	draw_frame(g_game, g_game->moves, g_game->status, 0);
 	mlx_loop(g_game->mlx);
 	return (1);
 }

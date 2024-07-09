@@ -45,7 +45,7 @@ void	load_sprites(t_game *root)
 {
 	char	**assets;
 
-	assets = malloc(sizeof(char *) * 10);
+	assets = malloc(sizeof(char *) * 11);
 	if (!assets)
 		clean_exit(-1, &root);
 	assets[0] = "sprites/background.xpm";
@@ -57,7 +57,8 @@ void	load_sprites(t_game *root)
 	assets[6] = "sprites/players.xpm";
 	assets[7] = "sprites/playerd.xpm";
 	assets[8] = "sprites/exit_open.xpm";
-	assets[9] = NULL;
+	assets[9] = "sprites/footprint.xpm";
+	assets[10] = NULL;
 	load_sprites2(root, assets);
 }
 

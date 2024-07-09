@@ -48,6 +48,8 @@ static void	put_img(t_game *root, char tile, int x, int y)
 		mlx_put_image_to_window(root->mlx, root->win, sprite(root, 7), x, y);
 	else if (tile == 'E')
 		mlx_put_image_to_window(root->mlx, root->win, sprite(root, 8), x, y);
+	else if (tile == '0')
+		mlx_put_image_to_window(root->mlx, root->win, sprite(root, 9), x, y);
 }
 
 // draw_frame clears the window, then starts drawing sprites according to
@@ -92,7 +94,7 @@ static int	move_player2(int key, char **map, int x, int y)
 			game_win();
 		else if (map[y + 1][x] != '1' && map[y + 1][x] != 'e')
 		{
-			map[y][x] = 'o';
+			map[y][x] = '0';
 			map[y + 1][x] = 'S';
 			return (1);
 		}
@@ -104,7 +106,7 @@ static int	move_player2(int key, char **map, int x, int y)
 			game_win();
 		else if (map[y][x + 1] != '1' && map[y][x + 1] != 'e')
 		{
-			map[y][x] = 'o';
+			map[y][x] = '0';
 			map[y][x + 1] = 'D';
 			return (1);
 		}
@@ -124,7 +126,7 @@ int	move_player(int key, char **map, int x, int y)
 			game_win();
 		else if (map[y - 1][x] != '1' && map[y - 1][x] != 'e')
 		{
-			map[y][x] = 'o';
+			map[y][x] = '0';
 			map[y - 1][x] = 'P';
 			return (1);
 		}
@@ -136,7 +138,7 @@ int	move_player(int key, char **map, int x, int y)
 			game_win();
 		else if (map[y][x - 1] != '1' && map[y][x - 1] != 'e')
 		{
-			map[y][x] = 'o';
+			map[y][x] = '0';
 			map[y][x - 1] = 'A';
 			return (1);
 		}
